@@ -1,6 +1,5 @@
 import React from "react";
-import Modal from "@mui/material/Modal";
-import Box from "@mui/material/Box";
+import { Modal, Box, Typography, List, ListItem, ListItemText } from "@mui/material";
 
 const ModalComponent = ({ open, onClose, data }) => (
   <Modal open={open} onClose={onClose}>
@@ -8,19 +7,30 @@ const ModalComponent = ({ open, onClose, data }) => (
       sx={{
         width: 400,
         margin: "auto",
+        marginTop: "10%",
         padding: 4,
         background: "white",
         borderRadius: "8px",
+        boxShadow: 24,
       }}
     >
-      <h2>Coordinates</h2>
-      <ul>
-        {data.map((coord, index) => (
-          <li key={index}>
-            WP({index.toString().padStart(2, "0")}): {coord.join(", ")}
-          </li>
-        ))}
-      </ul>
+      <Typography variant="h6" gutterBottom>
+        Coordinates
+      </Typography>
+      {data.length > 0 ? (
+        <List>
+          {data.map((coord, index) => (
+            <ListItem key={index}>
+              <ListItemText
+                primary={`WP(${index.toString().padStart(2, "0")})`}
+                secondary={`Coordinates: ${coord.join(", ")}`}
+              />
+            </ListItem>
+          ))}
+        </List>
+      ) : (
+        <Typography>No coordinates to display.</Typography>
+      )}
     </Box>
   </Modal>
 );
